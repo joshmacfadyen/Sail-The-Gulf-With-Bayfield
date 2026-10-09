@@ -305,21 +305,6 @@ function render(idx){
   pb.textContent = p.n; pb.className = 'badge '+p.cls;
   document.getElementById('i-place').textContent = r.t ? 'In transit' : r.pv;
 
-  const cb = document.getElementById('i-conf');
-  if(r.t || !r.c){
-    cb.textContent='transit'; cb.className='badge conf-transit';
-  } else {
-    cb.textContent = r.c; cb.className = 'badge ' + (CONF_CLASS[r.c]||'conf-low');
-  }
-
-  const sa = document.getElementById('sig-anchor');
-  const sm = document.getElementById('sig-motion');
-  sa.className = 'signal' + (r.an ? ' active' : '');
-  sm.className = 'signal' + (r.mo ? ' active' : '');
-
-  document.getElementById('i-stats').textContent =
-    r.np + ' place' + (r.np!==1?'s':'') + ' mentioned · ' + r.wc + ' words';
-
   document.getElementById('date-display').textContent  = r.d;
   document.getElementById('status-display').textContent = r.t ? 'in transit' : r.pv;
 }
