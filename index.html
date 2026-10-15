@@ -96,15 +96,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   <div class="map-title-3">From The St. Lawrence Survey Journals, 1831&ndash;1853</div>
   <div class="map-title-4">Map by the UPEI GeoREACH Lab &mdash; <a href="https://projects.upei.ca/geolab/resources/geogulf/" target="_blank" rel="noopener" style="color:#8fa5bc;text-decoration:underline">upei.ca/GeoLab</a></div>
 
-  <div class="info-row">
-    <span class="info-label">Date</span>
-    <span class="info-val" id="i-date">—</span>
-    <span class="badge" id="i-period">—</span>
-  </div>
-  <div class="info-row">
-    <span class="info-label">Location</span>
-    <span class="info-val" id="i-place">—</span>
-  </div>
 </div>
 
 <div id="legend">
@@ -304,12 +295,6 @@ function render(idx){
     {permanent:false, sticky:false}
   )
   .addTo(dynLayer);
-
-  const p = period(r.d);
-  document.getElementById('i-date').textContent  = r.d;
-  const pb = document.getElementById('i-period');
-  pb.textContent = p.n; pb.className = 'badge '+p.cls;
-  document.getElementById('i-place').textContent = r.t ? 'In transit' : r.pv;
 
   document.getElementById('date-display').textContent  = r.d;
   document.getElementById('status-display').textContent = r.t ? 'in transit' : r.pv;
