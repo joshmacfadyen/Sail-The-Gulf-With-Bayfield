@@ -10,16 +10,19 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
      background:#eef0f3;overflow:hidden}
-#map{position:fixed;inset:0 0 70px 0}
+#map{position:fixed;inset:0 0 96px 0}
 
 /* ── Controls bar ─────────────────────────────────────── */
 #controls{
-  position:fixed;bottom:0;left:0;right:0;height:70px;
+  position:fixed;bottom:0;left:0;right:0;height:96px;
   background:rgba(20,28,42,.97);color:#c8d4e4;
   padding:10px 22px;z-index:9999;
   display:flex;flex-direction:column;gap:5px;
   box-shadow:0 -3px 14px rgba(0,0,0,.45)
 }
+#date-line{display:flex;align-items:baseline;gap:12px;line-height:1}
+#date-display{font-size:22px;font-weight:700;letter-spacing:.4px;color:#fff;min-width:118px}
+#status-display{font-size:12px;color:#7a92ab}
 #slider-row{display:flex;align-items:center;gap:10px}
 #slider{flex:1;cursor:pointer;accent-color:#E67E22;height:5px}
 #btn-row{display:flex;align-items:center;gap:8px}
@@ -67,7 +70,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 
 /* ── Legend ────────────────────────────────────────────── */
 #legend{
-  position:fixed;bottom:84px;left:12px;z-index:9998;
+  position:fixed;bottom:110px;left:12px;z-index:9998;
   background:rgba(20,28,42,.88);color:#c8d4e4;
   padding:10px 14px;border-radius:7px;
   box-shadow:0 1px 8px rgba(0,0,0,.35);
@@ -192,6 +195,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 </div>
 
 <div id="controls">
+  <div id="date-line">
+    <span id="date-display">&mdash;</span>
+    <span id="status-display"></span>
+  </div>
   <div id="slider-row">
     <input type="range" id="slider" min="0" max="0" step="1" value="0"/>
   </div>
@@ -350,7 +357,7 @@ function buildFloatVesselIcon(pulse, yr){
 }
 
 // ── MAP ───────────────────────────────────────────────────────────────────────
-const map = L.map('map',{center:[51.5,-68],zoom:6,preferCanvas:true});
+const map = L.map('map',{center:[49.5,-68],zoom:6,preferCanvas:true});
 L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",{attribution:"Tiles &copy; Esri",maxZoom:16}).addTo(map);L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}",{attribution:"",maxZoom:16}).addTo(map);
 
 // ── CONSTANTS & HELPERS ───────────────────────────────────────────────────────
@@ -436,6 +443,8 @@ function render(idx){
        )
        .addTo(dynLayer);
     });
+    document.getElementById('date-display').textContent   = "After Bayfield's Survey";
+    document.getElementById('status-display').textContent = '';
     return;
   }
   const r       = DATA[idx];
@@ -543,6 +552,8 @@ function render(idx){
      .addTo(dynLayer);
   });
 
+  document.getElementById('date-display').textContent  = r.d;
+  document.getElementById('status-display').textContent = r.t ? 'in transit' : r.pv;
 }
 
 // ── SLIDER ────────────────────────────────────────────────────────────────────
